@@ -1,10 +1,10 @@
 {
-  "name": "@xmanscript/utils",
+  "name": "@xmanscript/uselocalstorage",
   "version": "1.0.0-semantically-released",
-  "description": "Complex utility functions package with 20+ utility functions.",
+  "description": " custom hook that simplifies local storage management in your React applications.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/**.git"
+    "url": "https://github.com/laxmanpokhrel/xmanscript-use-local-storage"
   },
   "keywords": [
     "utils",
@@ -14,9 +14,9 @@
     "light weight"
   ],
   "bugs": {
-    "url": "https://github.com/**/issues"
+    "url": "https://github.com/laxmanpokhrel/xmanscript-use-local-storage/issues"
   },
-  "homepage": "https://github.com/**#readme",
+  "homepage": "https://github.com/laxmanpokhrel/xmanscript-use-local-storage#readme",
   "main": "./lib/index.js",
   "scripts": {
     "build": "rm -rf lib && tsc",
@@ -51,11 +51,11 @@
     "lint-staged": "^14.0.1",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
+    "semantic-release": "^22.0.0",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.6",
-    "semantic-release": "^22.0.0"
+    "typescript": "^5.1.6"
   },
   "peerDependencies": {
     "react": "*"
@@ -73,5 +73,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@types/react": "^18.2.32",
+    "react": "^18.2.0"
   }
 }

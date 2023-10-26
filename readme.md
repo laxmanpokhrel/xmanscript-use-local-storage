@@ -1,85 +1,119 @@
+# @xmanscript/uselocalstorage
 
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+## Introduction
 
-# NPM Package Template
+`@xmanscript/uselocalstorage` is a React custom hook that simplifies local storage management in your React applications. It provides a convenient way to read and write data to the browser's local storage and handle changes to local storage values. This hook is designed to be versatile and easy to use.
 
-Use this template to quickly set up and release npm packages with ease. This template is configured to automate the release process using semantic-release and provides commitizen support for standardized commit messages.
+## Table of Contents
 
-## Getting Started
+1. [Installation](#installation)
+2. [Basic Usage](#basic-usage)
+3. [API](#api)
+4. [Examples](#examples)
 
-To get started with this template, follow these steps:
+## Installation
 
-1. Click the "Use this template" button at the top of the repository to create a new repository based on this template.
-
-2. Clone the newly created repository to your local machine:
-
-   ```bash
-   git clone https://github.com/your-username/your-package.git
-   ```
-
-3. Change into the project directory:
-
-   ```bash
-   cd your-package
-   ```
-
-4. Install the project dependencies:
-
-   ```bash
-   yarn install
-   ```
-
-### Initializing Husky
-
-Husky is a tool that helps you set up Git hooks easily. These hooks can run checks or tasks before you commit or push changes. This template uses Husky to enforce commit message conventions.
-
-To initialize Husky, run the following command:
+You can install `@xmanscript/uselocalstorage` using npm or yarn:
 
 ```bash
-npx husky-init && yarn
+npm install @xmanscript/uselocalstorage
+# or
+yarn add @xmanscript/uselocalstorage
+```
+## Basic Usage
+To use the useLocalStorage hook, import it in your React component and call it with a key that corresponds to your local storage item. Optionally, you can provide a callback function to handle changes to the local storage value.
+
+Here's a simple example:
+```tsx
+import React from 'react';
+import useLocalStorage from '@xmanscript/uselocalstorage';
+
+function MyComponent() {
+  const { getItem, setItem, removeItem } = useLocalStorage('myKey', () => {
+    // This callback will be triggered when 'myKey' changes in other tabs or windows.
+    // You can update your component's state or take other actions here.
+  });
+
+  // Use the functions to interact with local storage
+  const storedValue = getItem(); // Retrieve the value
+  setItem('newData'); // Set a new value
+  removeItem(); // Remove the item from local storage
+}
 ```
 
-### Initializing Commitizen
+## API
+### useLocalStorage(key: string, onStorageChange?: () => any)
 
-Commitizen is a tool that helps you write consistent and conventional commit messages. It prompts you to fill in the required commit message fields, ensuring your commits are well-structured.
+* `key` (string, required): The key used to identify the local storage item.
+* `onStorageChange` (function, optional): A callback function that is triggered when the local storage item with the specified key changes in other tabs or windows.
 
-To initialize Commitizen with this template, run the following command:
+Returns an object with the following methods:
 
-```bash
-npx commitizen init cz-conventional-changelog --yarn --dev --exact --force
+* `getItem(): string | null`: Retrieves the value stored in local storage.
+* `setItem(value: string)`: void: Sets a new value in local storage and triggers the onStorageChange callback (if provided).
+* `removeItem(): void`: Removes the item from local storage and triggers the onStorageChange callback (if provided).
+
+
+## Examples
+### Creating an Authentication Hook
+Here's an example of creating an authentication hook using useLocalStorage:
+```tsx
+import { useState } from 'react';
+import useLocalStorage from '@xmanscript/uselocalstorage';
+
+export default function useAuth() {
+  // Create a React state variable to keep track of the authentication status.
+  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'));
+
+  // Use the useLocalStorage hook to manage the 'token' key in local storage.
+  const { setItem, removeItem } = useLocalStorage('token', () => {
+    // This callback is triggered when the 'token' value in local storage changes.
+    // It allows you to update the component's state based on changes to the 'token'.
+    const newToken = localStorage.getItem('token');
+    setIsAuthenticated(!!newToken);
+  });
+
+  // The logIn function is used to set the 'token' in local storage.
+  function logIn(authToken: string) {
+    setItem(authToken); // Set the 'token' to the provided value.
+  }
+
+  // The logOut function is used to remove the 'token' from local storage.
+  function logOut() {
+    removeItem(); // Remove the 'token' from local storage.
+  }
+
+  // Return an object with authentication status and functions to log in and out.
+  return { isAuthenticated, logIn, logOut };
+}
 ```
-- **Github Actions branch change:** You have to modify the 
-banch name to the branch name in which you want the release job to start.
+Explanation:
 
-```
-name: Release
-on:
-  push:
-    branches:
-      - <<release brnach name>>
-```
+1. The useAuth hook is designed to manage authentication in your application. It keeps track of the user's authentication status using a 'token' stored in local storage.
 
-- **Custom TypeScript Configuration**: You can modify the TypeScript configuration in `tsconfig.json` to suit your project's needs.
+2. The useState hook is used to create a state variable called isAuthenticated. It's initialized based on the presence of a 'token' in local storage. If a 'token' exists, isAuthenticated is set to true; otherwise, it's false.
 
-## Contributing
+3. The useLocalStorage hook is used to manage the 'token' key in local storage. It takes a callback function as an argument, which is executed whenever the 'token' value in local storage changes. In this example, the callback function updates the isAuthenticated state variable based on the presence of the 'token.'
 
-We welcome contributions to this project. If you have any bug fixes, feature additions, or improvements, please open an issue or submit a pull request. Make sure to follow the commit message conventions for your pull requests.
+4. The logIn function allows users to log in by setting the 'token' in local storage. It takes an authToken parameter, which is the token returned after a successful login. The setItem function from useLocalStorage is used to set this value in local storage.
 
-## License
+5. The logOut function is used to log the user out. It removes the 'token' from local storage using the removeItem function from useLocalStorage.
 
-This project is licensed under the MIT License.
-## Acknowledgments
+Finally, the useAuth hook returns an object with the current authentication status (isAuthenticated) and functions to log in (logIn) and log out (logOut).
 
-- [Semantic Release](https://semantic-release.gitbook.io/semantic-release/)
-- [Commitizen](http://commitizen.github.io/cz-cli/)
-- [Husky](https://typicode.github.io/husky/)
-- [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [Jest](https://jestjs.io/)
-- [TypeScript](https://www.typescriptlang.org/)
 
-## Support
 
-If you have any questions or need assistance, please feel free to reach out through the GitHub Issues section of this repository.
+## Conclusion
 
-Happy coding! 🚀
+The `@xmanscript/uselocalstorage` custom hook simplifies local storage management and provides a flexible way to handle changes in local storage values. It offers a convenient API to interact with local storage, making it easy to create applications that require client-side data persistence.
+
+Key benefits of using `@xmanscript/uselocalstorage`:
+
+- Effortless local storage management: Store and retrieve data in local storage with ease.
+- Real-time updates: The hook triggers callbacks when local storage values change in other tabs or windows.
+- Versatility: Use it for various use cases, from authentication tokens to user preferences.
+- Improved user experience: Keep your application's state in sync with local storage changes.
+
+We encourage you to explore the capabilities of `@xmanscript/uselocalstorage` and consider how it can enhance your React applications. Whether you're building a user authentication system, saving user preferences, or managing application state, this hook is a valuable addition to your toolkit.
+
+Feel free to reach out to us for support or to report any issues on [GitHub](https://github.com/laxmanpokhrel/xmanscript-use-local-storage/issues). We look forward to seeing how you use `@xmanscript/uselocalstorage` to streamline your development process and improve the user experience of your applications.

@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - release # branch in which you want the publish to happen
+      - main # branch in which you want the publish to happen
 
 permissions:
   contents: read # for checkout
