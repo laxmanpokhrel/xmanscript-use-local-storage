@@ -89,17 +89,17 @@ export default function useAuth() {
 ```
 Explanation:
 
-1. The useAuth hook is designed to manage authentication in your application. It keeps track of the user's authentication status using a 'token' stored in local storage.
+1. The `useAuth` hook is designed to manage authentication in your application. It keeps track of the user's authentication status using a 'token' stored in local storage.
 
-2. The useState hook is used to create a state variable called isAuthenticated. It's initialized based on the presence of a 'token' in local storage. If a 'token' exists, isAuthenticated is set to true; otherwise, it's false.
+2. The `useState` hook is used to create a state variable called isAuthenticated. It's initialized based on the presence of a 'token' in local storage. If a 'token' exists, isAuthenticated is set to true; otherwise, it's false.
 
-3. The useLocalStorage hook is used to manage the 'token' key in local storage. It takes a callback function as an argument, which is executed whenever the 'token' value in local storage changes. In this example, the callback function updates the isAuthenticated state variable based on the presence of the 'token.'
+3. The `useLocalStorage` hook is used to manage the 'token' key in local storage. It takes a callback function as an argument, which is executed whenever the 'token' value in local storage changes. In this example, the callback function updates the isAuthenticated state variable based on the presence of the 'token.'
 
-4. The logIn function allows users to log in by setting the 'token' in local storage. It takes an authToken parameter, which is the token returned after a successful login. The setItem function from useLocalStorage is used to set this value in local storage.
+4. The `logIn` function allows users to log in by setting the 'token' in local storage. It takes an authToken parameter, which is the token returned after a successful login. The setItem function from useLocalStorage is used to set this value in local storage.
 
-5. The logOut function is used to log the user out. It removes the 'token' from local storage using the removeItem function from useLocalStorage.
+5. The `logOut` function is used to log the user out. It removes the 'token' from local storage using the removeItem function from useLocalStorage.
 
-Finally, the useAuth hook returns an object with the current authentication status (isAuthenticated) and functions to log in (logIn) and log out (logOut).
+Finally, the useAuth hook returns an object with the current authentication status (`isAuthenticated`) and functions to log in (`logIn`) and log out (`logOut`).
 
 
 
