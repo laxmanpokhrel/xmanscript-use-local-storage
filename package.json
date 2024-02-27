@@ -1,6 +1,6 @@
 {
   "name": "@xmanscript/uselocalstorage",
-  "version": "1.0.0-semantically-released",
+  "version": "2.0.0",
   "description": " custom hook that simplifies local storage management in your React applications.",
   "repository": {
     "type": "git",
