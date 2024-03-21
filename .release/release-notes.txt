@@ -1,2 +1,2 @@
 # Fix
-- Build configuration changes to map import
+- Npm ignored files changed
