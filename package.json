@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/laxmanpokhrel/xmanscript-use-local-storage#readme",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+
   "scripts": {
     "build": "rm -rf lib && tsc",
     "prepare": "husky install",

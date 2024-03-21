@@ -8,6 +8,7 @@
     "strict": true,
     "lib": ["ES2020", "DOM"],
     "removeComments": false,
+    "jsx": "react", // Make sure this option is set to "react"
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -17,8 +18,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": false
+    "allowSyntheticDefaultImports": true // You can set this to true
   },
   "exclude": ["node_modules"],
-  "include": [".eslintrc.js", "src", "src/**/*.ts"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"] // Update the path to include .tsx files
 }

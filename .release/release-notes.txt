@@ -1,2 +1,2 @@
-# Changes
-- Sementic release removed
+# Fix
+- Build configuration changes to map import
